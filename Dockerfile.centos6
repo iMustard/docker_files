@@ -1,0 +1,30 @@
+#FROM quay.io/aicoe/manylinux2010_x86_64
+#sub_mod/manylinux2010-s2i Dockerfile here https://github.com/sub-mod/manylinux-images/tree/master/centos-s2i
+FROM quay.io/sub_mod/manylinux2010-s2i
+
+USER root
+
+ENV JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-1.8.0*" \
+    PLATFORM="el6" 
+
+
+RUN yum update && yum install -y centos-release-scl unzip tree mlocate vim wget ccache sudo tcsh vim which \
+    && yum install -y redhat-lsb make automake kernel-devel glibc-devel gcc gcc-c++ libidn-0.6.5-1.1.x86_64 gcc-gfortran flex zlib-devel boost boost-devel numactl libxml2-devel \
+    && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel 
+
+RUN wget http://www.openssl.org/source/openssl-1.1.1w.tar.gz \
+    && tar zxf openssl-1.1.1w.tar.gz \
+    && cd openssl-1.1.1w \
+    && ./config && make && make install \
+    && cd ..
+
+RUN wget  https://github.com/madler/zlib/archive/refs/tags/v1.2.11.tar.gz  \
+    && tar zxf v1.2.11.tar.gz \
+    && cd zlib-1.2.11 \
+    && ./configure && make && make install \
+    && cd ../
+
+
+
+# Switch to the user 
+# USER 1001
