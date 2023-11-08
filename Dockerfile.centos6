@@ -12,7 +12,7 @@ RUN yum update && yum install -y centos-release-scl unzip tree mlocate vim wget 
     && yum install -y redhat-lsb make automake kernel-devel glibc-devel gcc gcc-c++ libidn-0.6.5-1.1.x86_64 gcc-gfortran flex zlib-devel boost boost-devel numactl libxml2-devel \
     && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel 
 
-RUN wget http://www.openssl.org/source/openssl-1.1.1w.tar.gz \
+RUN wget https://github.com/openssl/openssl/releases/download/OpenSSL_1_1_1w/openssl-1.1.1w.tar.gz \
     && tar zxf openssl-1.1.1w.tar.gz \
     && cd openssl-1.1.1w \
     && ./config && make && make install \
